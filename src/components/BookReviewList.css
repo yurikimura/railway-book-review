@@ -1,0 +1,114 @@
+.book-review-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.book-review-list-container h2 {
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.no-reviews {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #dee2e6;
+}
+
+.no-reviews p {
+  color: #6c757d;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e9ecef;
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.book-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.book-link {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.book-link:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.book-url {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.url-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.url-link:hover {
+  text-decoration: underline;
+}
+
+.reviewer-info {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 0.25rem 0;
+}
+
+.review-text {
+  line-height: 1.6;
+  color: #333;
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .book-review-list-container {
+    padding: 0 0.5rem;
+  }
+  
+  .review-card {
+    padding: 1rem;
+  }
+}
