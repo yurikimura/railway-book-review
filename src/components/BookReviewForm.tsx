@@ -1,14 +1,6 @@
 import { useState } from 'react'
+import { type BookReview } from '../utils/api'
 import './BookReviewForm.css'
-
-interface BookReview {
-  id: string
-  title: string
-  url: string
-  reviewer: string
-  review: string
-  createdAt: Date
-}
 
 interface BookReviewFormProps {
   onSubmit: (review: Omit<BookReview, 'id' | 'createdAt'>) => void

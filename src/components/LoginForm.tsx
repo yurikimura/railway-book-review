@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import './LoginForm.css'
 
-export function LoginForm() {
+interface LoginFormProps {
+  onSubmit: (credentials: { email: string; password: string }) => void
+}
+
+export function LoginForm({ onSubmit }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // ログイン処理はここに実装
-    console.log('ログイン試行:', { email, password })
+    onSubmit({ email, password })
   }
 
   return (

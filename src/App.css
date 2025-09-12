@@ -31,10 +31,60 @@
   font-size: 1.1rem;
 }
 
+.logout-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.logout-button:hover {
+  background: #c82333;
+}
+
 .app-main {
   padding: 0 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.error-message {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #c33;
+}
+
+.error-message p {
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+}
+
+.error-message button {
+  background: #c33;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.error-message button:hover {
+  background: #a22;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
 }
 
 @media (max-width: 768px) {

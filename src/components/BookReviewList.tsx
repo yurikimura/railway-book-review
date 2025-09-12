@@ -1,13 +1,5 @@
+import { type BookReview } from '../utils/api'
 import './BookReviewList.css'
-
-interface BookReview {
-  id: string
-  title: string
-  url: string
-  reviewer: string
-  review: string
-  createdAt: Date
-}
 
 interface BookReviewListProps {
   reviews: BookReview[]
@@ -55,6 +47,9 @@ export function BookReviewList({ reviews }: BookReviewListProps) {
               </div>
               <div className="reviewer-info">
                 レビュワー: {review.reviewer}
+              </div>
+              <div className="review-date">
+                投稿日: {new Date(review.createdAt).toLocaleDateString('ja-JP')}
               </div>
               <div className="review-text">
                 {review.review}

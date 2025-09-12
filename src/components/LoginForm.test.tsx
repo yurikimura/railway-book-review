@@ -3,20 +3,15 @@ import userEvent from '@testing-library/user-event'
 import { vi } from 'vitest'
 import { LoginForm } from './LoginForm'
 
-// コンソールログをモック化
-const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-
 describe('LoginForm コンポーネント', () => {
-  beforeEach(() => {
-    consoleSpy.mockClear()
-  })
+  const mockOnSubmit = vi.fn()
 
-  afterAll(() => {
-    consoleSpy.mockRestore()
+  beforeEach(() => {
+    mockOnSubmit.mockClear()
   })
 
   test('ログインフォームが正しくレンダリングされている', () => {
-    render(<LoginForm />)
+    render(<LoginForm onSubmit={mockOnSubmit} />)
     
     // フォーム要素の存在確認
     expect(screen.getByRole('heading', { name: 'ログイン' })).toBeInTheDocument()
@@ -26,7 +21,7 @@ describe('LoginForm コンポーネント', () => {
   })
 
   test('フォームの各入力フィールドが存在している', () => {
-    render(<LoginForm />)
+    render(<LoginForm onSubmit={mockOnSubmit} />)
     
     // 入力フィールドの確認
     const emailInput = screen.getByRole('textbox', { name: 'メールアドレス' })
@@ -44,7 +39,7 @@ describe('LoginForm コンポーネント', () => {
   })
 
   test('ボタンがsubmitタイプで正しく設定されている', () => {
-    render(<LoginForm />)
+    render(<LoginForm onSubmit={mockOnSubmit} />)
     
     const submitButton = screen.getByRole('button', { name: 'ログイン' })
     expect(submitButton).toBeInTheDocument()
@@ -54,7 +49,7 @@ describe('LoginForm コンポーネント', () => {
 
   test('入力フィールドの値が変更できる', async () => {
     const user = userEvent.setup()
-    render(<LoginForm />)
+    render(<LoginForm onSubmit={mockOnSubmit} />)
     
     const emailInput = screen.getByRole('textbox', { name: 'メールアドレス' })
     const passwordInput = screen.getByLabelText('パスワード')
@@ -68,9 +63,9 @@ describe('LoginForm コンポーネント', () => {
     expect(passwordInput).toHaveValue('password123')
   })
 
-  test('フォーム送信時にpreventDefaultが呼ばれコンソールにログが出力される', async () => {
+  test('フォーム送信時にonSubmitコールバックが正しい引数で呼ばれる', async () => {
     const user = userEvent.setup()
-    render(<LoginForm />)
+    render(<LoginForm onSubmit={mockOnSubmit} />)
     
     const emailInput = screen.getByRole('textbox', { name: 'メールアドレス' })
     const passwordInput = screen.getByLabelText('パスワード')
@@ -83,15 +78,15 @@ describe('LoginForm コンポーネント', () => {
     // フォーム送信
     await user.click(submitButton)
     
-    // コンソールログが呼ばれたことを確認
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'ログイン試行:',
-      { email: 'test@example.com', password: 'password123' }
-    )
+    // onSubmitコールバックが正しい引数で呼ばれたことを確認
+    expect(mockOnSubmit).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password123'
+    })
   })
 
   test('フォーム要素が存在し適切な構造を持っている', () => {
-    render(<LoginForm />)
+    render(<LoginForm onSubmit={mockOnSubmit} />)
     
     // フォーム要素をクラス名で取得
     const formElement = document.querySelector('form.login-form')
