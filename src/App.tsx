@@ -80,7 +80,7 @@ function App() {
 
   const handleLogin = async (credentials: { email: string; password: string }) => {
     try {
-      await authApi.login(credentials)
+      await authApi.signin(credentials)
       setIsAuthenticated(true)
       setError(null)
     } catch (err) {

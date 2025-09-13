@@ -156,7 +156,7 @@ export const authApi = {
   },
 
   // ログイン
-  login: async (credentials: SignInCredentials): Promise<{ token: string }> => {
+  signin: async (credentials: SignInCredentials): Promise<{ token: string }> => {
     const result = await apiRequest<{ token: string }>(
       API_CONFIG.ENDPOINTS.LOGIN, 
       'POST', 
