@@ -10,6 +10,7 @@ function App() {
   const [reviews, setReviews] = useState<BookReview[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showRegisterForm, setShowRegisterForm] = useState(false)
 
@@ -70,7 +71,7 @@ function App() {
       // 登録成功後、ログイン画面に切り替え
       setShowRegisterForm(false)
       // 成功メッセージを表示
-      setError('登録が完了しました。ログインしてください。')
+      setSuccessMessage('登録が完了しました。ログインしてください。')
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : '登録に失敗しました'
       setError(errorMessage)
@@ -95,17 +96,20 @@ function App() {
     setIsAuthenticated(false)
     setReviews([])
     setError(null)
+    setSuccessMessage(null)
     setShowRegisterForm(false)
   }
 
   const switchToRegister = () => {
     setShowRegisterForm(true)
     setError(null)
+    setSuccessMessage(null)
   }
 
   const switchToLogin = () => {
     setShowRegisterForm(false)
     setError(null)
+    setSuccessMessage(null)
   }
 
   return (
@@ -125,6 +129,12 @@ function App() {
           <div className="error-message">
             <p>エラー: {error}</p>
             <button onClick={() => setError(null)}>閉じる</button>
+          </div>
+        )}
+        
+        {successMessage && (
+          <div className="success-message">
+            <p>{successMessage}</p>
           </div>
         )}
         
