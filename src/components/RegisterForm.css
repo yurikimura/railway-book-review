@@ -1,0 +1,153 @@
+.register-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.register-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #e5e7eb;
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.register-description {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.register-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.register-form input.error {
+  border-color: #ef4444;
+}
+
+.register-form input.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.register-form input:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.error-message {
+  display: block;
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.register-button {
+  width: 100%;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.register-button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.register-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.switch-form {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.switch-form p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.switch-button {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0;
+  margin-left: 0.25rem;
+}
+
+.switch-button:hover:not(:disabled) {
+  color: #2563eb;
+}
+
+.switch-button:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 640px) {
+  .register-form-container {
+    padding: 1rem;
+  }
+  
+  .register-form {
+    padding: 1.5rem;
+  }
+  
+  .register-form h2 {
+    font-size: 1.25rem;
+  }
+}

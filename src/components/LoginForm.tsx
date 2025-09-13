@@ -3,9 +3,10 @@ import './LoginForm.css'
 
 interface LoginFormProps {
   onSubmit: (credentials: { email: string; password: string }) => void
+  onSwitchToRegister?: () => void
 }
 
-export function LoginForm({ onSubmit }: LoginFormProps) {
+export function LoginForm({ onSubmit, onSwitchToRegister }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -46,6 +47,21 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
         <button type="submit" className="login-button">
           ログイン
         </button>
+
+        {onSwitchToRegister && (
+          <div className="switch-form">
+            <p>
+              アカウントをお持ちでないですか？{' '}
+              <button 
+                type="button" 
+                className="switch-button"
+                onClick={onSwitchToRegister}
+              >
+                新規登録
+              </button>
+            </p>
+          </div>
+        )}
       </form>
     </div>
   )

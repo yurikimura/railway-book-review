@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BookReviewForm } from './components/BookReviewForm'
 import { BookReviewList } from './components/BookReviewList'
 import { LoginForm } from './components/LoginForm'
+import { RegisterForm, type RegisterData } from './components/RegisterForm'
 import { reviewsApi, authApi, type BookReview } from './utils/api'
 import './App.css'
 
@@ -10,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [showRegisterForm, setShowRegisterForm] = useState(false)
 
   // 認証状態をチェック
   useEffect(() => {
@@ -25,7 +27,6 @@ function App() {
         
         // 認証が必要な場合のチェック
         if (!authApi.isAuthenticated()) {
-          setError('ログインが必要です。認証情報を入力してください。')
           setLoading(false)
           return
         }
@@ -62,6 +63,21 @@ function App() {
     }
   }
 
+  const handleRegister = async (userData: RegisterData) => {
+    try {
+      await authApi.register(userData)
+      setError(null)
+      // 登録成功後、ログイン画面に切り替え
+      setShowRegisterForm(false)
+      // 成功メッセージを表示
+      setError('登録が完了しました。ログインしてください。')
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : '登録に失敗しました'
+      setError(errorMessage)
+      console.error('Failed to register:', err)
+    }
+  }
+
   const handleLogin = async (credentials: { email: string; password: string }) => {
     try {
       await authApi.login(credentials)
@@ -78,6 +94,17 @@ function App() {
     authApi.logout()
     setIsAuthenticated(false)
     setReviews([])
+    setError(null)
+    setShowRegisterForm(false)
+  }
+
+  const switchToRegister = () => {
+    setShowRegisterForm(true)
+    setError(null)
+  }
+
+  const switchToLogin = () => {
+    setShowRegisterForm(false)
     setError(null)
   }
 
@@ -102,7 +129,11 @@ function App() {
         )}
         
         {!isAuthenticated ? (
-          <LoginForm onSubmit={handleLogin} />
+          showRegisterForm ? (
+            <RegisterForm onSubmit={handleRegister} onSwitchToLogin={switchToLogin} />
+          ) : (
+            <LoginForm onSubmit={handleLogin} onSwitchToRegister={switchToRegister} />
+          )
         ) : (
           <>
             <BookReviewForm onSubmit={handleReviewSubmit} />

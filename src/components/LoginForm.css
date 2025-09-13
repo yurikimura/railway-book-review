@@ -67,4 +67,32 @@
 .login-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+.switch-form {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 1rem;
+}
+
+.switch-form p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.switch-button {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0;
+  margin-left: 0.25rem;
+}
+
+.switch-button:hover {
+  color: #2563eb;
 } 

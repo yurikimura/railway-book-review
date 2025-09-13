@@ -11,7 +11,14 @@ export interface BookReview {
 }
 
 // ログイン情報の型定義
-export interface LoginCredentials {
+export interface SignInCredentials {
+  email: string
+  password: string
+}
+
+// ユーザー登録情報の型定義
+export interface RegisterData {
+  name: string
   email: string
   password: string
 }
@@ -138,8 +145,18 @@ export const reviewsApi = {
 
 // 認証関連のAPI関数
 export const authApi = {
+  // ユーザー登録
+  register: async (userData: RegisterData): Promise<{ message: string }> => {
+    return apiRequest<{ message: string }>(
+      API_CONFIG.ENDPOINTS.REGISTER, 
+      'POST', 
+      userData, 
+      false // 登録時は認証不要
+    )
+  },
+
   // ログイン
-  login: async (credentials: LoginCredentials): Promise<{ token: string }> => {
+  login: async (credentials: SignInCredentials): Promise<{ token: string }> => {
     const result = await apiRequest<{ token: string }>(
       API_CONFIG.ENDPOINTS.LOGIN, 
       'POST', 
