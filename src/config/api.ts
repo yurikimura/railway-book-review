@@ -1,9 +1,9 @@
 // API設定
 export const API_CONFIG = {
-  BASE_URL: import.meta.env.DEV ? '/api' : 'https://railway.bookreview.techtrain.dev',
+  BASE_URL: 'https://railway.bookreview.techtrain.dev',
   ENDPOINTS: {
     BOOKS: '/books',
-    LOGIN: '/users',
+    LOGIN: '/signin',
     LOGOUT: '/users',
     REGISTER: '/users',
   }
