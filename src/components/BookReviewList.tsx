@@ -6,6 +6,9 @@ interface BookReviewListProps {
 }
 
 export function BookReviewList({ reviews }: BookReviewListProps) {
+  // 先頭の10件のみを表示
+  const displayedReviews = reviews.slice(0, 10)
+
   if (reviews.length === 0) {
     return (
       <div className="book-review-list-container">
@@ -20,9 +23,9 @@ export function BookReviewList({ reviews }: BookReviewListProps) {
 
   return (
     <div className="book-review-list-container">
-      <h2>投稿されたレビュー ({reviews.length}件)</h2>
+      <h2>投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)</h2>
       <div className="reviews-grid">
-        {reviews.map((review) => (
+        {displayedReviews.map((review) => (
           <div key={review.id} className="review-card">
             <div className="review-content">
               <div className="book-title">

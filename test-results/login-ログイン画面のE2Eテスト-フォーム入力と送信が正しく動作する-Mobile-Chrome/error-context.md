@@ -7,7 +7,7 @@
     - paragraph [ref=e6]: お気に入りの書籍をレビューして共有しましょう
   - main [ref=e7]:
     - generic [ref=e8]:
-      - paragraph [ref=e9]: "エラー: API request failed: HTTP error! status: 400"
+      - paragraph [ref=e9]: "エラー: ネットワークエラー: サーバーに接続できません。インターネット接続を確認してください。"
       - button "閉じる" [ref=e10] [cursor=pointer]
     - generic [ref=e12]:
       - heading "ログイン" [level=2] [ref=e13]

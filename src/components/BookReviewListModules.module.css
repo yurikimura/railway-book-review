@@ -1,0 +1,130 @@
+/* CSS Modules - スコープが管理されたスタイル */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.title {
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.noReviews {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #dee2e6;
+}
+
+.noReviewsText {
+  color: #6c757d;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.reviewsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reviewCard {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e9ecef;
+  margin-bottom: 1rem;
+}
+
+.reviewCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.reviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bookTitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.4;
+  color: #000;
+}
+
+.bookLink {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.bookLink:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.bookUrl {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0.1rem 0;
+}
+
+.urlLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.urlLink:hover {
+  text-decoration: underline;
+}
+
+.reviewerInfo {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0.1rem 0;
+  font-weight: 500;
+}
+
+.reviewDate {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0.1rem 0;
+}
+
+.reviewText {
+  line-height: 1.7;
+  color: #333;
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.95rem;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .reviewsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .reviewCard {
+    padding: 1rem;
+  }
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BookReviewForm } from './components/BookReviewForm'
-import { BookReviewList } from './components/BookReviewList'
+import { BookReviewListDemo } from './components/BookReviewListDemo'
 import { LoginForm } from './components/LoginForm'
 import { RegisterForm, type RegisterData } from './components/RegisterForm'
 import { reviewsApi, authApi, type BookReview } from './utils/api'
@@ -153,7 +153,7 @@ function App() {
                 <p>レビューを読み込み中...</p>
               </div>
             ) : (
-              <BookReviewList reviews={reviews} />
+              <BookReviewListDemo reviews={reviews} />
             )}
           </>
         )}
