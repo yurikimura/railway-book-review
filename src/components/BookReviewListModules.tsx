@@ -27,8 +27,8 @@ export function BookReviewListModules({ reviews }: BookReviewListModulesProps) {
         投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)
       </h2>
       <div className={styles.reviewsGrid}>
-        {displayedReviews.map((review) => (
-          <div key={review.id} className={styles.reviewCard}>
+        {displayedReviews.map((review, index) => (
+          <div key={index} className={styles.reviewCard}>
             <div className={styles.reviewContent}>
               <div className={styles.bookTitle}>
                 <a 
@@ -51,10 +51,7 @@ export function BookReviewListModules({ reviews }: BookReviewListModulesProps) {
                 </a>
               </div>
               <div className={styles.reviewerInfo}>
-                レビュワー: {review.reviewer}
-              </div>
-              <div className={styles.reviewDate}>
-                投稿日: {new Date(review.createdAt).toLocaleDateString('ja-JP')}
+                レビュワー: {review.reviewer || review.detail}
               </div>
               <div className={styles.reviewText}>
                 {review.review}

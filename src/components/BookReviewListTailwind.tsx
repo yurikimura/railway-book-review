@@ -32,9 +32,9 @@ export function BookReviewListTailwind({ reviews }: BookReviewListTailwindProps)
         投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)
       </h2>
       <div className="grid grid-cols-1 gap-4 mt-4 max-w-4xl mx-auto">
-        {displayedReviews.map((review) => (
+        {displayedReviews.map((review, index) => (
           <div 
-            key={review.id} 
+            key={index} 
             className="bg-white rounded-lg shadow-md p-5 transition-all duration-200 border border-gray-200 mb-4 hover:-translate-y-1 hover:shadow-lg"
           >
             <div className="flex flex-col gap-2">
@@ -59,10 +59,7 @@ export function BookReviewListTailwind({ reviews }: BookReviewListTailwindProps)
                 </a>
               </div>
               <div className="text-sm text-gray-700 my-1 font-medium">
-                レビュワー: {review.reviewer}
-              </div>
-              <div className="text-sm text-gray-600 my-1">
-                投稿日: {new Date(review.createdAt).toLocaleDateString('ja-JP')}
+                レビュワー: {review.reviewer || review.detail}
               </div>
               <div className="leading-relaxed text-gray-700 mt-2 whitespace-pre-wrap break-words text-sm">
                 {review.review}

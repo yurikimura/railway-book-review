@@ -25,8 +25,8 @@ export function BookReviewList({ reviews }: BookReviewListProps) {
     <div className="book-review-list-container">
       <h2>投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)</h2>
       <div className="reviews-grid">
-        {displayedReviews.map((review) => (
-          <div key={review.id} className="review-card">
+        {displayedReviews.map((review, index) => (
+          <div key={index} className="review-card">
             <div className="review-content">
               <div className="book-title">
                 <a 
@@ -49,10 +49,7 @@ export function BookReviewList({ reviews }: BookReviewListProps) {
                 </a>
               </div>
               <div className="reviewer-info">
-                レビュワー: {review.reviewer}
-              </div>
-              <div className="review-date">
-                投稿日: {new Date(review.createdAt).toLocaleDateString('ja-JP')}
+                レビュワー: {review.reviewer || review.detail}
               </div>
               <div className="review-text">
                 {review.review}

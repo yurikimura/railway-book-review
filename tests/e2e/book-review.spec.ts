@@ -32,9 +32,9 @@ test.describe('書籍レビュー機能のE2Eテスト', () => {
     await expect(urlInput).toHaveAttribute('type', 'url');
     await expect(urlInput).toHaveAttribute('placeholder', 'https://example.com/book');
     
-    const reviewerInput = page.getByLabel('レビュワー（名前）');
-    await expect(reviewerInput).toBeVisible();
-    await expect(reviewerInput).toHaveAttribute('placeholder', 'あなたのお名前を入力してください');
+    const detailInput = page.getByLabel('レビュワー（名前）');
+    await expect(detailInput).toBeVisible();
+    await expect(detailInput).toHaveAttribute('placeholder', 'あなたのお名前を入力してください');
     
     const reviewTextarea = page.getByLabel('書籍レビュー本文');
     await expect(reviewTextarea).toBeVisible();

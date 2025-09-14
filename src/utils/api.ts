@@ -2,12 +2,11 @@ import { buildApiUrl, API_CONFIG } from '../config/api'
 
 // 書籍レビューの型定義
 export interface BookReview {
-  id: string
-  title: string
-  url: string
-  reviewer: string
-  review: string
-  createdAt: string
+  title: string,
+  url: string,
+  detail: string,
+  review: string,
+  reviewer?: string
 }
 
 // ログイン情報の型定義

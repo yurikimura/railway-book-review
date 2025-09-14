@@ -114,12 +114,6 @@ const ReviewerInfo = styled.div`
   font-weight: 500;
 `
 
-const ReviewDate = styled.div`
-  font-size: 0.95rem;
-  color: #666;
-  margin: 0.1rem 0;
-`
-
 const ReviewText = styled.div`
   line-height: 1.7;
   color: #333;
@@ -149,8 +143,8 @@ export function BookReviewListStyled({ reviews }: BookReviewListStyledProps) {
     <Container>
       <Title>投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)</Title>
       <ReviewsGrid>
-        {displayedReviews.map((review) => (
-          <ReviewCard key={review.id}>
+        {displayedReviews.map((review, index) => (
+          <ReviewCard key={index}>
             <ReviewContent>
               <BookTitle>
                 <BookLink 
@@ -171,11 +165,8 @@ export function BookReviewListStyled({ reviews }: BookReviewListStyledProps) {
                 </UrlLink>
               </BookUrl>
               <ReviewerInfo>
-                レビュワー: {review.reviewer}
+                レビュワー: {review.reviewer || review.detail}
               </ReviewerInfo>
-              <ReviewDate>
-                投稿日: {new Date(review.createdAt).toLocaleDateString('ja-JP')}
-              </ReviewDate>
               <ReviewText>
                 {review.review}
               </ReviewText>

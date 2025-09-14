@@ -9,13 +9,13 @@ interface BookReviewFormProps {
 export function BookReviewForm({ onSubmit }: BookReviewFormProps) {
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
-  const [reviewer, setReviewer] = useState('')
+  const [detail, setDetail] = useState('')
   const [review, setReview] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!title.trim() || !url.trim() || !reviewer.trim() || !review.trim()) {
+    if (!title.trim() || !url.trim() || !detail.trim() || !review.trim()) {
       alert('すべてのフィールドを入力してください')
       return
     }
@@ -23,14 +23,14 @@ export function BookReviewForm({ onSubmit }: BookReviewFormProps) {
     onSubmit({
       title: title.trim(),
       url: url.trim(),
-      reviewer: reviewer.trim(),
+      detail: detail.trim(),
       review: review.trim()
     })
 
     // フォームをリセット
     setTitle('')
     setUrl('')
-    setReviewer('')
+    setDetail('')
     setReview('')
   }
 
@@ -63,12 +63,12 @@ export function BookReviewForm({ onSubmit }: BookReviewFormProps) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="reviewer">レビュワー（名前） *</label>
+          <label htmlFor="detail">レビュワー（名前） *</label>
           <input
             type="text"
-            id="reviewer"
-            value={reviewer}
-            onChange={(e) => setReviewer(e.target.value)}
+            id="detail"
+            value={detail}
+            onChange={(e) => setDetail(e.target.value)}
             required
             placeholder="あなたのお名前を入力してください"
           />
