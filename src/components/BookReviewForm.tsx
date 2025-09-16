@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { type BookReview } from '../utils/api'
+import { useState, useEffect } from 'react'
+import { type BookReview, authApi } from '../utils/api'
 import './BookReviewForm.css'
 
 interface BookReviewFormProps {
@@ -9,28 +9,38 @@ interface BookReviewFormProps {
 export function BookReviewForm({ onSubmit }: BookReviewFormProps) {
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
-  const [detail, setDetail] = useState('')
   const [review, setReview] = useState('')
+  const [userName, setUserName] = useState<string>('')
+
+  // ログインしたユーザー名を取得
+  useEffect(() => {
+    // 実際の実装では、ログイン時にユーザー名を取得するAPIを呼び出す
+    // 現在は認証状態のみをチェックしているため、デフォルト値を設定
+    if (authApi.isAuthenticated()) {
+      setUserName('ログインユーザー') // 実際の実装では、APIからユーザー名を取得
+    } else {
+      setUserName('匿名ユーザー')
+    }
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!title.trim() || !url.trim() || !detail.trim() || !review.trim()) {
-      alert('すべてのフィールドを入力してください')
+    if (!title.trim() || !url.trim() || !review.trim()) {
+      alert('必須フィールド（タイトル、URL、レビュー本文）を入力してください')
       return
     }
 
     onSubmit({
       title: title.trim(),
       url: url.trim(),
-      detail: detail.trim(),
+      detail: userName, // ログインしたユーザー名を使用
       review: review.trim()
     })
 
     // フォームをリセット
     setTitle('')
     setUrl('')
-    setDetail('')
     setReview('')
   }
 
@@ -59,18 +69,6 @@ export function BookReviewForm({ onSubmit }: BookReviewFormProps) {
             onChange={(e) => setUrl(e.target.value)}
             required
             placeholder="https://example.com/book"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="detail">レビュワー（名前） *</label>
-          <input
-            type="text"
-            id="detail"
-            value={detail}
-            onChange={(e) => setDetail(e.target.value)}
-            required
-            placeholder="あなたのお名前を入力してください"
           />
         </div>
 
