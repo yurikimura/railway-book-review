@@ -22,30 +22,29 @@ function App() {
   // デモ用のサンプルデータを生成
   const generateSampleReviews = (): BookReview[] => {
     const sampleBooks = [
-      { title: 'React入門', author: '山田太郎', isbn: '978-1234567890' },
-      { title: 'TypeScript完全ガイド', author: '佐藤花子', isbn: '978-1234567891' },
-      { title: 'JavaScriptの基礎', author: '田中一郎', isbn: '978-1234567892' },
-      { title: 'CSS Grid Layout', author: '鈴木二郎', isbn: '978-1234567893' },
-      { title: 'Node.js実践入門', author: '高橋三郎', isbn: '978-1234567894' },
-      { title: 'Vue.js 3.0完全攻略', author: '伊藤四郎', isbn: '978-1234567895' },
-      { title: 'Next.jsアプリケーション開発', author: '渡辺五郎', isbn: '978-1234567896' },
-      { title: 'GraphQL実践ガイド', author: '中村六郎', isbn: '978-1234567897' },
-      { title: 'Dockerコンテナ技術', author: '小林七郎', isbn: '978-1234567898' },
-      { title: 'AWSクラウド入門', author: '加藤八郎', isbn: '978-1234567899' },
-      { title: 'Python機械学習', author: '吉田九郎', isbn: '978-1234567800' },
-      { title: 'Go言語プログラミング', author: '山本十郎', isbn: '978-1234567801' },
-      { title: 'Rustシステムプログラミング', author: '松本十一郎', isbn: '978-1234567802' },
-      { title: 'Kubernetes完全ガイド', author: '林十二郎', isbn: '978-1234567803' },
-      { title: 'マイクロサービス設計', author: '森十三郎', isbn: '978-1234567804' },
-      { title: 'データベース設計の基礎', author: '石川十四郎', isbn: '978-1234567805' },
-      { title: 'セキュリティエンジニアリング', author: '阿部十五郎', isbn: '978-1234567806' },
-      { title: 'テスト駆動開発', author: '福田十六郎', isbn: '978-1234567807' },
-      { title: 'アジャイル開発手法', author: '岡田十七郎', isbn: '978-1234567808' },
-      { title: 'DevOps実践入門', author: '中島十八郎', isbn: '978-1234567809' }
+      { title: 'React入門', author: '山田太郎', url: 'https://example.com/react-guide' },
+      { title: 'TypeScript完全ガイド', author: '佐藤花子', url: 'https://example.com/typescript-guide' },
+      { title: 'JavaScriptの基礎', author: '田中一郎', url: 'https://example.com/javascript-basics' },
+      { title: 'CSS Grid Layout', author: '鈴木二郎', url: 'https://example.com/css-grid' },
+      { title: 'Node.js実践入門', author: '高橋三郎', url: 'https://example.com/nodejs-practice' },
+      { title: 'Vue.js 3.0完全攻略', author: '伊藤四郎', url: 'https://example.com/vue3-guide' },
+      { title: 'Next.jsアプリケーション開発', author: '渡辺五郎', url: 'https://example.com/nextjs-app' },
+      { title: 'GraphQL実践ガイド', author: '中村六郎', url: 'https://example.com/graphql-practice' },
+      { title: 'Dockerコンテナ技術', author: '小林七郎', url: 'https://example.com/docker-containers' },
+      { title: 'AWSクラウド入門', author: '加藤八郎', url: 'https://example.com/aws-cloud' },
+      { title: 'Python機械学習', author: '吉田九郎', url: 'https://example.com/python-ml' },
+      { title: 'Go言語プログラミング', author: '山本十郎', url: 'https://example.com/go-programming' },
+      { title: 'Rustシステムプログラミング', author: '松本十一郎', url: 'https://example.com/rust-systems' },
+      { title: 'Kubernetes完全ガイド', author: '林十二郎', url: 'https://example.com/kubernetes-guide' },
+      { title: 'マイクロサービス設計', author: '森十三郎', url: 'https://example.com/microservices' },
+      { title: 'データベース設計の基礎', author: '石川十四郎', url: 'https://example.com/database-design' },
+      { title: 'セキュリティエンジニアリング', author: '阿部十五郎', url: 'https://example.com/security-engineering' },
+      { title: 'テスト駆動開発', author: '福田十六郎', url: 'https://example.com/tdd' },
+      { title: 'アジャイル開発手法', author: '岡田十七郎', url: 'https://example.com/agile-development' },
+      { title: 'DevOps実践入門', author: '中島十八郎', url: 'https://example.com/devops-practice' }
     ]
 
-    const ratings = [1, 2, 3, 4, 5]
-    const comments = [
+    const reviews = [
       'とても参考になりました！',
       '初心者にも分かりやすい内容です。',
       '実践的な例が豊富で良いです。',
@@ -59,13 +58,11 @@ function App() {
     ]
 
     return sampleBooks.map((book, index) => ({
-      id: `sample-${index + 1}`,
       title: book.title,
-      author: book.author,
-      isbn: book.isbn,
-      rating: ratings[Math.floor(Math.random() * ratings.length)],
-      comment: comments[Math.floor(Math.random() * comments.length)],
-      createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
+      url: book.url,
+      detail: `著者: ${book.author}`,
+      review: reviews[Math.floor(Math.random() * reviews.length)],
+      reviewer: `レビュワー${index + 1}`
     }))
   }
 
