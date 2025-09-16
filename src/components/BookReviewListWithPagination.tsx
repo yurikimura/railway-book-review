@@ -73,19 +73,21 @@ export function BookReviewListWithPagination() {
       <h2>投稿されたレビュー (全{totalCount}件)</h2>
       
       <div className="reviews-grid">
-        {items.map((review: any) => (
-          <BookReviewItem key={review.id} review={review} />
+        {items.map((review: any, index: number) => (
+          <BookReviewItem key={index} review={review} />
         ))}
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        hasNextPage={hasNextPage}
-        hasPreviousPage={hasPreviousPage}
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
-        loading={loading}
-      />
+      {totalCount > 10 && (
+        <Pagination
+          currentPage={currentPage}
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+          onNextPage={handleNextPage}
+          onPreviousPage={handlePreviousPage}
+          loading={loading}
+        />
+      )}
     </div>
   )
 }

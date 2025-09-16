@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { type BookReview } from '../utils/api'
+import { Pagination } from './Pagination'
 import './BookReviewList.css'
 
 interface BookReviewListProps {
@@ -6,8 +8,17 @@ interface BookReviewListProps {
 }
 
 export function BookReviewList({ reviews }: BookReviewListProps) {
-  // 先頭の10件のみを表示
-  const displayedReviews = reviews.slice(0, 10)
+  const [currentPage, setCurrentPage] = useState(0)
+  const itemsPerPage = 10
+
+  // ページネーションの計算
+  const totalPages = Math.ceil(reviews.length / itemsPerPage)
+  const startIndex = currentPage * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const displayedReviews = reviews.slice(startIndex, endIndex)
+  
+  const hasNextPage = currentPage < totalPages - 1
+  const hasPreviousPage = currentPage > 0
 
   if (reviews.length === 0) {
     return (
@@ -21,9 +32,21 @@ export function BookReviewList({ reviews }: BookReviewListProps) {
     )
   }
 
+  const handleNextPage = () => {
+    if (hasNextPage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const handlePreviousPage = () => {
+    if (hasPreviousPage) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
   return (
     <div className="book-review-list-container">
-      <h2>投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)</h2>
+      <h2>投稿されたレビュー (ページ {currentPage + 1}/{totalPages} - 表示: {displayedReviews.length}件 / 全{reviews.length}件)</h2>
       <div className="reviews-grid">
         {displayedReviews.map((review, index) => (
           <div key={index} className="review-card">
@@ -58,6 +81,13 @@ export function BookReviewList({ reviews }: BookReviewListProps) {
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+        onNextPage={handleNextPage}
+        onPreviousPage={handlePreviousPage}
+      />
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { type BookReview } from '../utils/api'
 
 interface BookReviewListTailwindProps {
@@ -5,8 +6,30 @@ interface BookReviewListTailwindProps {
 }
 
 export function BookReviewListTailwind({ reviews }: BookReviewListTailwindProps) {
-  // 先頭の10件のみを表示
-  const displayedReviews = reviews.slice(0, 10)
+  const [currentPage, setCurrentPage] = useState(0)
+  const itemsPerPage = 10
+  
+  // 現在のページのレビューを計算
+  const startIndex = currentPage * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const displayedReviews = reviews.slice(startIndex, endIndex)
+  
+  // ページネーション情報を計算
+  const totalPages = Math.ceil(reviews.length / itemsPerPage)
+  const hasNextPage = currentPage < totalPages - 1
+  const hasPreviousPage = currentPage > 0
+  
+  const handleNextPage = () => {
+    if (hasNextPage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+  
+  const handlePreviousPage = () => {
+    if (hasPreviousPage) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
 
   if (reviews.length === 0) {
     return (
@@ -29,7 +52,7 @@ export function BookReviewListTailwind({ reviews }: BookReviewListTailwindProps)
   return (
     <div className="max-w-6xl mx-auto px-4">
       <h2 className="text-gray-800 mb-8 text-center text-2xl">
-        投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)
+        投稿されたレビュー (全{reviews.length}件)
       </h2>
       <div className="grid grid-cols-1 gap-4 mt-4 max-w-4xl mx-auto">
         {displayedReviews.map((review, index) => (
@@ -68,6 +91,39 @@ export function BookReviewListTailwind({ reviews }: BookReviewListTailwindProps)
           </div>
         ))}
       </div>
+      
+      {/* ページネーション */}
+      {totalPages > 1 && (
+        <div className="flex justify-between items-center mt-8 mb-4 px-4 py-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="text-sm text-gray-600 font-medium">
+            ページ {currentPage + 1} / {totalPages}
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={handlePreviousPage}
+              disabled={!hasPreviousPage}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                hasPreviousPage
+                  ? 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 shadow-sm'
+                  : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
+              }`}
+            >
+              前へ
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={!hasNextPage}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                hasNextPage
+                  ? 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 shadow-sm'
+                  : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
+              }`}
+            >
+              次へ
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

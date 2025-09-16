@@ -1,5 +1,7 @@
+import { useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { type BookReview } from '../utils/api'
+import { Pagination } from './Pagination'
 
 interface BookReviewListStyledProps {
   reviews: BookReview[]
@@ -123,9 +125,96 @@ const ReviewText = styled.div`
   font-size: 0.95rem;
 `
 
+// ページネーション用のStyled Components
+const PaginationContainer = styled.div`
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  .pagination-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pagination-info {
+    color: #666;
+    font-weight: 500;
+  }
+
+  .pagination-button {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: #e9ecef;
+      border-color: #adb5bd;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      background: #f8f9fa;
+      color: #adb5bd;
+      border-color: #e9ecef;
+      cursor: not-allowed;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+
+    .pagination-container {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .pagination-buttons {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pagination-button {
+      flex: 1;
+      max-width: 120px;
+    }
+  }
+`
+
 export function BookReviewListStyled({ reviews }: BookReviewListStyledProps) {
-  // 先頭の10件のみを表示
-  const displayedReviews = reviews.slice(0, 10)
+  const [currentPage, setCurrentPage] = useState(0)
+  const itemsPerPage = 6
+
+  // ページネーション用のデータを計算
+  const paginatedData = useMemo(() => {
+    const startIndex = currentPage * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    return {
+      items: reviews.slice(startIndex, endIndex),
+      totalPages: Math.ceil(reviews.length / itemsPerPage),
+      hasNextPage: currentPage < Math.ceil(reviews.length / itemsPerPage) - 1,
+      hasPreviousPage: currentPage > 0,
+      totalCount: reviews.length
+    }
+  }, [reviews, currentPage, itemsPerPage])
+
+  const handleNextPage = () => {
+    if (paginatedData.hasNextPage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const handlePreviousPage = () => {
+    if (paginatedData.hasPreviousPage) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
 
   if (reviews.length === 0) {
     return (
@@ -141,9 +230,9 @@ export function BookReviewListStyled({ reviews }: BookReviewListStyledProps) {
 
   return (
     <Container>
-      <Title>投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)</Title>
+      <Title>投稿されたレビュー (表示: {paginatedData.items.length}件 / 全{paginatedData.totalCount}件)</Title>
       <ReviewsGrid>
-        {displayedReviews.map((review, index) => (
+        {paginatedData.items.map((review, index) => (
           <ReviewCard key={index}>
             <ReviewContent>
               <BookTitle>
@@ -174,6 +263,18 @@ export function BookReviewListStyled({ reviews }: BookReviewListStyledProps) {
           </ReviewCard>
         ))}
       </ReviewsGrid>
+      
+      {paginatedData.totalPages > 1 && (
+        <PaginationContainer>
+          <Pagination
+            currentPage={currentPage}
+            hasNextPage={paginatedData.hasNextPage}
+            hasPreviousPage={paginatedData.hasPreviousPage}
+            onNextPage={handleNextPage}
+            onPreviousPage={handlePreviousPage}
+          />
+        </PaginationContainer>
+      )}
     </Container>
   )
 }

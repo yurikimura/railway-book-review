@@ -19,6 +19,56 @@ function App() {
     setIsAuthenticated(authApi.isAuthenticated())
   }, [])
 
+  // デモ用のサンプルデータを生成
+  const generateSampleReviews = (): BookReview[] => {
+    const sampleBooks = [
+      { title: 'React入門', author: '山田太郎', isbn: '978-1234567890' },
+      { title: 'TypeScript完全ガイド', author: '佐藤花子', isbn: '978-1234567891' },
+      { title: 'JavaScriptの基礎', author: '田中一郎', isbn: '978-1234567892' },
+      { title: 'CSS Grid Layout', author: '鈴木二郎', isbn: '978-1234567893' },
+      { title: 'Node.js実践入門', author: '高橋三郎', isbn: '978-1234567894' },
+      { title: 'Vue.js 3.0完全攻略', author: '伊藤四郎', isbn: '978-1234567895' },
+      { title: 'Next.jsアプリケーション開発', author: '渡辺五郎', isbn: '978-1234567896' },
+      { title: 'GraphQL実践ガイド', author: '中村六郎', isbn: '978-1234567897' },
+      { title: 'Dockerコンテナ技術', author: '小林七郎', isbn: '978-1234567898' },
+      { title: 'AWSクラウド入門', author: '加藤八郎', isbn: '978-1234567899' },
+      { title: 'Python機械学習', author: '吉田九郎', isbn: '978-1234567800' },
+      { title: 'Go言語プログラミング', author: '山本十郎', isbn: '978-1234567801' },
+      { title: 'Rustシステムプログラミング', author: '松本十一郎', isbn: '978-1234567802' },
+      { title: 'Kubernetes完全ガイド', author: '林十二郎', isbn: '978-1234567803' },
+      { title: 'マイクロサービス設計', author: '森十三郎', isbn: '978-1234567804' },
+      { title: 'データベース設計の基礎', author: '石川十四郎', isbn: '978-1234567805' },
+      { title: 'セキュリティエンジニアリング', author: '阿部十五郎', isbn: '978-1234567806' },
+      { title: 'テスト駆動開発', author: '福田十六郎', isbn: '978-1234567807' },
+      { title: 'アジャイル開発手法', author: '岡田十七郎', isbn: '978-1234567808' },
+      { title: 'DevOps実践入門', author: '中島十八郎', isbn: '978-1234567809' }
+    ]
+
+    const ratings = [1, 2, 3, 4, 5]
+    const comments = [
+      'とても参考になりました！',
+      '初心者にも分かりやすい内容です。',
+      '実践的な例が豊富で良いです。',
+      '理論と実践のバランスが取れています。',
+      '最新の技術動向が詳しく書かれています。',
+      'コード例が充実していて理解しやすいです。',
+      '問題解決のアプローチが参考になります。',
+      '段階的に学習できる構成になっています。',
+      '実際のプロジェクトで使える知識が得られました。',
+      '専門用語の説明が丁寧で理解しやすいです。'
+    ]
+
+    return sampleBooks.map((book, index) => ({
+      id: `sample-${index + 1}`,
+      title: book.title,
+      author: book.author,
+      isbn: book.isbn,
+      rating: ratings[Math.floor(Math.random() * ratings.length)],
+      comment: comments[Math.floor(Math.random() * comments.length)],
+      createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
+    }))
+  }
+
   // コンポーネントマウント時にレビューを取得
   useEffect(() => {
     const fetchReviews = async () => {
@@ -33,7 +83,10 @@ function App() {
         }
         
         const fetchedReviews = await reviewsApi.getAll()
-        setReviews(fetchedReviews)
+        // デモ用にサンプルデータを追加（実際のデータが少ない場合）
+        const sampleReviews = generateSampleReviews()
+        const allReviews = [...fetchedReviews, ...sampleReviews]
+        setReviews(allReviews)
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'レビューの取得に失敗しました'
         setError(errorMessage)

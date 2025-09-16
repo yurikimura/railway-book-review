@@ -1,4 +1,6 @@
+import { useState, useMemo } from 'react'
 import { type BookReview } from '../utils/api'
+import { Pagination } from './Pagination'
 import styles from './BookReviewListModules.module.css'
 
 interface BookReviewListModulesProps {
@@ -6,8 +8,33 @@ interface BookReviewListModulesProps {
 }
 
 export function BookReviewListModules({ reviews }: BookReviewListModulesProps) {
-  // 先頭の10件のみを表示
-  const displayedReviews = reviews.slice(0, 10)
+  const [currentPage, setCurrentPage] = useState(0)
+  const itemsPerPage = 6
+
+  // ページネーション用のデータを計算
+  const paginatedData = useMemo(() => {
+    const startIndex = currentPage * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    return {
+      items: reviews.slice(startIndex, endIndex),
+      totalPages: Math.ceil(reviews.length / itemsPerPage),
+      hasNextPage: currentPage < Math.ceil(reviews.length / itemsPerPage) - 1,
+      hasPreviousPage: currentPage > 0,
+      totalCount: reviews.length
+    }
+  }, [reviews, currentPage, itemsPerPage])
+
+  const handleNextPage = () => {
+    if (paginatedData.hasNextPage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const handlePreviousPage = () => {
+    if (paginatedData.hasPreviousPage) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
 
   if (reviews.length === 0) {
     return (
@@ -24,10 +51,10 @@ export function BookReviewListModules({ reviews }: BookReviewListModulesProps) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>
-        投稿されたレビュー (表示: {displayedReviews.length}件 / 全{reviews.length}件)
+        投稿されたレビュー (表示: {paginatedData.items.length}件 / 全{paginatedData.totalCount}件)
       </h2>
       <div className={styles.reviewsGrid}>
-        {displayedReviews.map((review, index) => (
+        {paginatedData.items.map((review, index) => (
           <div key={index} className={styles.reviewCard}>
             <div className={styles.reviewContent}>
               <div className={styles.bookTitle}>
@@ -60,6 +87,18 @@ export function BookReviewListModules({ reviews }: BookReviewListModulesProps) {
           </div>
         ))}
       </div>
+      
+      {paginatedData.totalPages > 1 && (
+        <div className={styles.paginationContainer}>
+          <Pagination
+            currentPage={currentPage}
+            hasNextPage={paginatedData.hasNextPage}
+            hasPreviousPage={paginatedData.hasPreviousPage}
+            onNextPage={handleNextPage}
+            onPreviousPage={handlePreviousPage}
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -113,6 +113,50 @@
   font-size: 0.95rem;
 }
 
+/* ページネーションコンテナ */
+.paginationContainer {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ページネーションコンテナ内のPaginationコンポーネントのスタイル調整 */
+.paginationContainer :global(.pagination-container) {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paginationContainer :global(.pagination-info) {
+  color: #666;
+  font-weight: 500;
+}
+
+.paginationContainer :global(.pagination-button) {
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.paginationContainer :global(.pagination-button:hover:not(:disabled)) {
+  background: #e9ecef;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
+}
+
+.paginationContainer :global(.pagination-button:disabled) {
+  background: #f8f9fa;
+  color: #adb5bd;
+  border-color: #e9ecef;
+  cursor: not-allowed;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
   .reviewsGrid {
@@ -126,5 +170,24 @@
   
   .reviewCard {
     padding: 1rem;
+  }
+  
+  .paginationContainer {
+    padding: 0.75rem;
+  }
+  
+  .paginationContainer :global(.pagination-container) {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .paginationContainer :global(.pagination-buttons) {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .paginationContainer :global(.pagination-button) {
+    flex: 1;
+    max-width: 120px;
   }
 }
